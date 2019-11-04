@@ -1,0 +1,7 @@
+com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+com.dc.cloud.json.support.json.handler.lineage.HiveColumnJsonHandler
+com.dc.cloud.json.support.json.handler.lineage.HiveDBJsonHandler
+com.dc.cloud.json.support.json.handler.table.LineageTableJsonHandler
+com.dc.cloud.json.support.json.handler.lineage.detail.ColumnDetailsJsonHandler
+com.dc.cloud.json.support.json.handler.lineage.detail.DBDetailsJsonHandler
+com.dc.cloud.json.support.json.handler.lineage.detail.TableDetailsJsonHandler

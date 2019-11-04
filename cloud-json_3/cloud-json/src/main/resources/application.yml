@@ -1,0 +1,64 @@
+#  //        jsonClient.getHiveData("/hive/table", HiveTableJsonDataHandler.class);
+#  //        jsonClient.getHiveData("/hive/column", HiveColumnJsonDataHandler.class);
+#  //        jsonClient.getHiveData("/hive/db", HiveDBJsonDataHandler.class);
+#  //        jsonClient.getHiveData("/hive/lineage", LineageTableJsonHandler.class);
+#  //        jsonClient.getHiveData("/hive/demo", HiveDemoJsonHandler.class);
+
+spring:
+  datasource:
+       driver-class-name: com.mysql.cj.jdbc.Driver
+       url: jdbc:mysql://192.168.26.151:3306/test?useUnicode=true&characterEncoding=utf-8
+       username: root
+       password: 123123
+
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://123.56.16.249:3306/face_demo?useUnicode=true&characterEncoding=utf-8
+#    username: root
+#    password: kanglu5211314
+  hive:
+    json:
+      # 设置相同前缀的访问路径
+      baseUrl: http://localhost:8111
+      #添加处理器  路径对应handler类处理
+      handlers:
+            '[http://node101:21000/api/atlas/v2/search/basic?typeName=hive_table]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+            '[http://localhost:8112/hive/table]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+            '[/hive/lineage]': com.dc.cloud.json.support.json.handler.table.LineageTableJsonHandler
+            '[http://node101:21000/api/atlas/v2/search/basic?typeName=hive_column]': com.dc.cloud.json.support.json.handler.lineage.HiveColumnJsonHandler
+            '[http://node101:21000/api/atlas/v2/search/basic?typeName=hive_db]': com.dc.cloud.json.support.json.handler.lineage.HiveDBJsonHandler
+
+#      handlers:
+#        '[http://localhost:8111/hive/table]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+#        '[http://localhost:8112/hive/table]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+#        '[/hive/lineage]': com.dc.cloud.json.support.json.handler.table.LineageTableJsonHandler
+#        '[/hive/column]': com.dc.cloud.json.support.json.handler.lineage.HiveColumnJsonHandler
+#        '[/hive/db]': com.dc.cloud.json.support.json.handler.lineage.HiveDBJsonHandler
+      dynamic-table-names:
+      - lineage_
+      - hive_demo_
+      - hive_
+      - lineage_details_
+      - lineage_%s_detail
+#     如过一个 db child对应多个子 url以及handler 可以修改配置并且加在AbstractLineageJsonHandler（一个则忽略）
+#      childHandlers:
+#        db:
+#          '[http://localhost:8111/hive/name]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+#        cloumn:
+#          '[http://localhost:8111/hive/name]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+#        table:
+#          '[http://localhost:8111/hive/name]': com.dc.cloud.json.support.json.handler.lineage.HiveTableJsonHandler
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      capital-mode: true
+#  configuration:
+#打印执行sql关闭则不显示
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    org.springframework.util: debug
+    reactor.netty: info
